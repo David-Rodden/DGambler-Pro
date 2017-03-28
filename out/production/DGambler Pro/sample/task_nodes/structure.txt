@@ -1,0 +1,20 @@
+Advertise -> OpenInteraction_1 -> WaitForTrade -> {AcceptTrade | DeclineTrade}
+    AcceptTrade -> RollDice -> {Win | Loss}
+        Win -> OpenInteraction_2 -> WaitFor
+        Loss ->
+    DeclineTrade -> Advertise
+
+    335.2 -> is in first trade
+    335.9 -> "name" has X free inventory slots.
+    335.12 -> Accept 1st screen
+    335.15 -> Decline 1st screen
+    335.25[] -> items put up by me
+    335.28[] -> items put up by other
+    335.31 -> Trading with "name"
+
+    334.1 -> is in second trade
+    334.13 -> accept second
+    334.14 -> decline second
+    334.28[] -> my second trade items (always includes at least 1 "Absolutely nothing")
+    334.29[] -> their second trade items (like above)
+    334.30 -> Trading with:<br>"name"
