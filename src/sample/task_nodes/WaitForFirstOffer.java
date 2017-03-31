@@ -5,8 +5,8 @@ import sample.TradeUtils;
 /**
  * Created by David on 3/4/2017.
  */
-public class WaitForOffer extends TaskNode {
-    public WaitForOffer(TaskFlowController controller, String name) {
+public class WaitForFirstOffer extends TaskNode {
+    public WaitForFirstOffer(TaskFlowController controller) {
         super(controller, "Waiting for " + controller.getGlobalValue("trader") + "'s offer");
     }
 

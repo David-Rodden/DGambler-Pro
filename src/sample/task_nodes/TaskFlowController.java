@@ -9,6 +9,10 @@ public class TaskFlowController {
     private final Hashtable<String, String> globalInfo;
     private final TaskNode root, current;
 
+    /**
+     * Initializes the TaskFlowController with the initial TaskNode root
+     * @param root
+     */
     public TaskFlowController(final TaskNode root) {
         globalInfo = new Hashtable<>();
         this.root = current = root;
