@@ -67,7 +67,6 @@ public abstract class TaskNode {
 
     /**
      * Error incurs if {@link #initializeInstance()} hasn't been called
-     *
      * @return int as the elapsed time of the instance
      */
     public int getInstanceElapsed() {

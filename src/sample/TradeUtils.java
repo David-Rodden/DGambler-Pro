@@ -16,6 +16,7 @@ public class TradeUtils {
     public static final int COINS = 995;
     public static final int NONE = 0;
     public static final int TRADE_TIMEOUT = 4000;
+    public static final int TRADE_TIMOUT_SEC = 4;
     public static final int INVENTORY_EMPTY = 0, INVENTORY_MAX = 28;
     public static final Hashtable<String, WidgetChild> widgets;
 

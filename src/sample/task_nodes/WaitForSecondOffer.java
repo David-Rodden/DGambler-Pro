@@ -1,5 +1,6 @@
 package sample.task_nodes;
 
+import org.tbot.methods.Time;
 import sample.TradeUtils;
 
 /**
@@ -12,14 +13,13 @@ public class WaitForSecondOffer extends TaskNode {
 
     @Override
     protected TaskNode verify() {
-        if(!TradeUtils.isTrading()){
-
-        }
-        return null;
+        return TradeUtils.isSecondTradeOpen() ? (getInstanceElapsed() > TradeUtils.TRADE_TIMOUT_SEC ? getChild() : this) : getParent();
     }
 
     @Override
     protected void execute() {
-
+        getController().updateGlobalInfo("receiving", String.valueOf(TradeUtils.getCoinsOffered(false)));
+        TradeUtils.acceptTrade();
+        Time.sleepUntil(() -> !TradeUtils.isTrading(), TradeUtils.TRADE_TIMEOUT);
     }
 }
