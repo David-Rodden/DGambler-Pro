@@ -11,12 +11,13 @@ import java.util.Optional;
 
 /**
  * Created by David on 3/2/2017.
+ * Facilitates trading with static calls
  */
 public class TradeUtils {
     public static final int COINS = 995;
     public static final int NONE = 0;
-    public static final int TRADE_TIMEOUT = 4000;
-    public static final int TRADE_TIMOUT_SEC = 4;
+    public static final int TRADE_INIT_TIMEOUT = 4000, TRADE_INIT_TIMEOUT_SEC = 4;
+    public static final int TRADING_TIMEOUT = 30000, TRADING_TIMEOUT_SEC = 30;
     public static final int INVENTORY_EMPTY = 0, INVENTORY_MAX = 28;
     public static final Hashtable<String, WidgetChild> widgets;
 
@@ -24,6 +25,10 @@ public class TradeUtils {
         widgets = new Hashtable<>();
     }
 
+    /**
+     * Initialization must be called before any other static calls can be made
+     * Widgets are pushed to a global widget stack which allows for calling
+     */
     public void init() {
         widgets.put("first", Widgets.getWidget(335, 2));
         widgets.put("second", Widgets.getWidget(334, 1));
@@ -40,6 +45,11 @@ public class TradeUtils {
     }
 
 
+    /**
+     *
+     * @param message
+     * @return String
+     */
     public static String getTraderFromMessage(final String message) {
         final String tradeMessage = "wishes to trade with you.";
         return message.matches("[\\w\\s]+ " + tradeMessage) ? message.split(tradeMessage)[0].trim() : null;
@@ -48,7 +58,7 @@ public class TradeUtils {
     public static void tradeWith(final Player player) {
         if (player == null) return;
         player.interact("Trade with");
-        Time.sleepUntil(() -> TradeUtils.isTrading(), TRADE_TIMEOUT);
+        Time.sleepUntil(() -> TradeUtils.isTrading(), TRADE_INIT_TIMEOUT);
     }
 
     public static boolean isFirstTradeOpen() {
@@ -91,7 +101,7 @@ public class TradeUtils {
     public static void declineTrade() {
         if (!isTrading()) return;
         widgets.get(isFirstTradeOpen() ? "first decline" : "second decline").click();
-        Time.sleepUntil(() -> !isTrading(), TRADE_TIMEOUT);
+        Time.sleepUntil(() -> !isTrading(), TRADE_INIT_TIMEOUT);
     }
 
     public static boolean isMyAcceptPending() {
@@ -104,6 +114,6 @@ public class TradeUtils {
         if (!isTrading()) return;
         final boolean firstTradeOpen = isFirstTradeOpen();
         widgets.get(firstTradeOpen ? "first accept" : "second accept").click();
-        Time.sleepUntil(() -> firstTradeOpen ? isSecondTradeOpen() : !isTrading(), TRADE_TIMEOUT);
+        Time.sleepUntil(() -> firstTradeOpen ? isSecondTradeOpen() : !isTrading(), TRADE_INIT_TIMEOUT);
     }
 }
