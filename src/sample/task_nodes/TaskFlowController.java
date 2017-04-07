@@ -66,4 +66,11 @@ public class TaskFlowController {
         return globalInfo.get(key);
     }
 
+    /**
+     * Removes the value from the hashtable
+     * @param key
+     */
+    protected void removeGlobalValue(final String key) {
+        globalInfo.remove(key);
+    }
 }
